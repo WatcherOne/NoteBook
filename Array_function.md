@@ -1,15 +1,28 @@
 * * * * * * * * * * * * * * * * * ** * * * * * * * * * * * * * * * * * 
-+ #### **Array.isArray()**
++ ### **Array.isArray()**
 ```javascript
-    Array.isArray(a) --->  true / false
+    Array.isArray(arr) --->  true / false
 ```
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 + ### **Array.from()**
 ```
-    1. {params}: function ---->
-    2. {params}: index   ----> 项索引
+    1. 将伪数组转成数组
+    2. 拥有length属性的都可以
+    3. 应用：去重
 ```
 ```javascript
-    Array.from(a) 
+    let str = '12345'
+    Array.from(str)  --->  [1, 2, 3, 4, 5]
+    Array.form(new Set([1, 2, 2, 3]))  ---> [1, 2, 3]
 ```
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
++ ### **[].push()**
+```
+    1. 栈方法
+    2. 末尾插入，可插入‘多’个
+    3. 原数组发生变化
+```
+```javascript
+    [1,2,3].push(4, 5)  --->  返回修改后的新数组的长度
+```
+
