@@ -1,6 +1,6 @@
-* * * * * * * * * * * * * * * * * ** * * * * * * * * * * * * * * * * * 
-    原数组改变的function：push/pop/unshift/shift/splice
-* * * * * * * * * * * * * * * * * ** * * * * * * * * * * * * * * * * * 
+* * * * * * * * * * * * * * * * * ** * * * * * * * * * * * * * * * * * * * * * * 
+    原数组会改变的Function：push/pop/unshift/shift/splice/reverse/sort
+* * * * * * * * * * * * * * * * * ** * * * * * * * * * * * * * * * * * * * * * *
 + ### **Array.isArray()**
 ```javascript
     Array.isArray(arr) --->  true / false
@@ -185,15 +185,90 @@
     arr.includes(5)  --->  false
     arr --->  [1,2,10,4,10]
 ```
-
-
-
-
-
-
-
-
-
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
++ ### **arr.map()**
+```
+    1. 迭代方法
+    2. 参数：(function - 通过 return 结果来组成新的数组)
+    3. function(item, index, arr) ----> 每一项/索引/数组对象本身
+    4. 返回与原数组一一对应的新数组(即长度相同), 原数组不发生变化
+```
+```javascript
+    let arr = [1,2,3,4,5]
+    arr.map((item, index, arr) => {
+        return item + 1
+    })  ---> [2,3,4,5,6]
+    arr ---> [1,2,3,4,5]
+```
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
++ ### **arr.forEach()**
+```
+    1. 迭代方法
+    2. 参数：(function - 无返回值)
+    3. function(item, index, arr) ----> 每一项/索引/数组对象本身
+    4. 无返回值, 原数组不发生变化
+    5. 应用：相当于循环数组, 处理一些数组任务
+```
+```javascript
+    let arr = [1,2,3,4,5]
+    arr.forEach((item, index, arr) => {
+        let str = item > 60 ? '及格' : '不及格'
+    })  ---> undefined
+    arr ---> [1,2,3,4,5]
+```
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
++ ### **arr.filter()**
+```
+    1. 迭代方法
+    2. 参数：(function - 通过 return true (非boolean型会转换后来判断是不是true) 来组成新的数组)
+    3. function(item, index, arr) ----> 每一项/索引/数组对象本身
+    4. 返回满足条件的新数组, 原数组不发生变化
+    5. 应用：用于对原数组的筛选
+```
+```javascript
+    let arr = [1,2,3,4,5]
+    arr.filter((item, index, arr) => {
+        return item > 3
+    })  ---> [4,5]
+    arr.filter(item => return 2) ---> [1,2,3,4,5]( 2也是true 故所有项都是true 都返回 )
+    arr ---> [1,2,3,4,5]
+```
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
++ ### **arr.every()**
+```
+    1. 迭代方法
+    2. 参数：(function)
+    3. function(item, index, arr) ----> 每一项/索引/数组对象本身
+    4. 返回参数函数每一个项全返回true,则返回true,有一项返回非true则返回false, 原数组不发生变化
+    5. 应用：用于判断数组每一项是否满足条件
+```
+```javascript
+    let arr = [1,2,3,4,5]
+    arr.every((item, index, arr) => {
+        return item > 3
+    })  ---> false (判断每一个项是否都是>3的)
+    arr.every((item, index, arr) => {
+        return item > 0
+    })  ---> true (判断每一个项是否都是>0的)
+    arr.filter(item => return 2) ---> true (2经过转换也是true故每一项都返回true, 则方法本身返回true)
+    arr ---> [1,2,3,4,5]
+```
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
++ ### **arr.some()**
+```
+    1. 迭代方法
+    2. 参数：(function)
+    3. function(item, index, arr) ----> 每一项/索引/数组对象本身
+    4. 至少有一项满足条件 则返回true, 都不满足则返回false, 原数组不发生变化
+    5. 应用：用于判断数组是否至少有一项满足条件
+```
+```javascript
+    let arr = [10,90,55,34,58]
+    arr.some((item, index, arr) => {
+        return item > 60
+    })  ---> true (判断是否至少有一个人及格)
+    arr ---> [1,2,3,4,5]
+```
 
 
 
