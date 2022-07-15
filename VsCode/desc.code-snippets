@@ -1,0 +1,27 @@
+{
+	// 多语言或全局用户定义的片段：'全局'片段文件（.code-snippets后缀）
+    // 全局片段文件中,可能会定义一个附加scope属性
+    // 占位符：${1:|one,two,three|} 可以有选择的其中一个值
+    // 变量：$name or ${name:default} 可以插入变量的值
+    // 一些特定变量：
+    // TM_SELECTED_TEXT: 当前选中的文本或空字符串
+    // TM_CURRENT_LINE: 当前行的内容
+    // TM_FILENAME: 当前文档的文件名
+    // TM_FILENAME_BASE: 当前文档的文件名,不带扩展名
+    // CURRENT_YEAR: 本年度
+    // 含包含一些日期类, 随机值, 行/块注释
+    "description": {
+        // 表示限制语言范围可用
+        "scope": "javascript,typescript",
+        "prefix": "desc",
+        "body": [
+            "/*************************************************************",
+            " * Author: ${1:zhubo}",
+            " * Emails: <${2:286154864@qq.com}>",
+            " * CreateTime: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+            " * Description: ${0:${TM_FILENAME_BASE:xxxxxxxxxxxxxx}}",
+            "*************************************************************/"
+        ],
+        "description": "create file's description for author,email,created"
+    }
+}

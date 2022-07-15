@@ -1,0 +1,39 @@
+{
+    // css.json 属于限定特定语言的片段文件, 仅在编辑为其定义的语言时才可访问！
+    // 自定义代码段的名称, 用于快速查询
+    "resetCss": {
+        // 用于触发sippet文本
+        "prefix": "resetCss",
+        // body指定代码模块内容
+        // 单个字符串或字符串数组
+        // 如果 body 定义了 tabstops [用$0, $1, $2, ...标识], 可以通过 Tab 键 来使光标跳到特定位置, 方便修改生成的模板
+        // 除了 $0 是最后到达的位置, 其它按顺序, 而且还可能多个地方同时
+        // placeholders: 带值的 tabstops, 其中的值会被作为默认文本插入代码中并被选中
+        // 用法: ${0:index} ${1:array}
+        "body": [
+            "html {",
+            "\theight: 100%;$1",
+            "}\n",
+            "body {",
+            "\theight: 100%;",
+            "\tmargin: 0;",
+            "\tpadding: 0;$2",
+            "}\n",
+            "a {",
+            "\ttext-decoration: none$3",
+            "}\n",
+            "ul {",
+            "\tlist-style: none;",
+            "\tpadding: 0;",
+            "\tmargin: 0;$4",
+            "}\n",
+            ".clearfix::after {",
+            "\tdisplay: block;",
+            "\tcontent: \"\";",
+            "\tclear: both;$0",
+            "}"
+        ],
+        // description: 用于指定描述该 snippet 的作用或模板内容的字段
+        "description": "clear browser default style"
+    }
+}
