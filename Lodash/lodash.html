@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./origin.js"></script>
+    <title>lodash</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        ul {
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .container {
+            height: 100vh;
+            display: flex;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .left-content {
+            width: 250px;
+            height: 100%;
+            border-right: 2px solid #dedede;
+            box-sizing: border-box;
+            transition: all 2s;
+        }
+        @media (max-width:900px) {
+            .left-content {
+                display: none;
+            }
+        }
+        .left-content .fn-list li {
+            font-size: 20px;
+            line-height: 32px;
+            padding-right: 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        .left-content .fn-list li a {
+            display: block;
+            padding-left: 10px;
+            border-radius: 4px;
+        }
+        .left-content .fn-list li:hover a {
+            background: rgb(238 240 243);
+        }
+        .left-content .fn-list li.active a {
+            color: lightseagreen;
+            background: rgb(238 240 243);
+        }
+        .right-content {
+            flex: 1;
+            height: 100%;
+        }
+        .right-content .fn-content {
+            height: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+        .right-content .fn-content .each-cont {
+            /* display: none; */
+            border-bottom: 2px dotted lightseagreen;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        /* .right-content .fn-content .each-cont.active {
+            display: block;
+        } */
+        .right-content .each-cont .title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .right-content .each-cont .input-list input {
+            width: 180px;
+            line-height: 24px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .right-content .each-cont .runtime-btn button {
+            display: inline-block;
+            width: auto;
+            height: 23px;
+            line-height: 23px;
+            padding: 0 20px;
+            text-align: center;
+            background-color: lightseagreen;
+            color: #1c1919;
+            border-color: #709d8e;
+            border-style: solid;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .right-content .each-cont .result-item {
+            font-size: 0;
+        }
+        .right-content .each-cont .result-item label,
+        .right-content .each-cont .result-item .result-content {
+            display: inline-block;
+            font-size: .9rem;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            vertical-align: top;
+            text-align: center;
+            padding: 0 10px;
+            background-color: beige;
+            border: 1px solid #dedede;
+            box-sizing: border-box;
+        }
+        .right-content .each-cont .result-item .result-content {
+            width: fit-content;
+            min-width: 220px;
+            border-left: none;
+        }
+        .right-content .each-cont .result-item.last-item label,
+        .right-content .each-cont .result-item.last-item .result-content {
+            border-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-content">
+            <ul id="js-fn-list" class="fn-list"></ul>
+        </div>
+        <div class="right-content">
+            <div id="js-fn-content" class="fn-content"></div>
+        </div>
+    </div>
+</body>
+<script src="./lodash.js"></script>
+<script>
+    window.onload = function () {
+        if (!window.lodash) return
+        const lodash = window.lodash
+        const $list = document.getElementById('js-fn-list')
+        const $cont = document.getElementById('js-fn-content')
+        for (let fnName in lodash) {
+            const title = `_.${fnName}`
+            $list.insertAdjacentHTML('beforeEnd', `
+                <li data-name="${fnName}" onclick="linkCurrent()"><a href="#${fnName}">${fnName}</a></li>
+            `)
+            const obj = lodash[fnName]
+            const fn = obj.fn
+            $cont.insertAdjacentHTML('beforeEnd', `
+                <div id="${fnName}" class="each-cont">
+                    <div class="title">${title}</div>
+                    <div class="input-list">
+                        ${getInputList(fnName, obj)}
+                    </div>
+                    <div class="runtime-btn">
+                        <button data-name="${fnName}" onclick="running()" type="button">运行</button>    
+                    </div>
+                    <div class="result-item">
+                        <label>原始时间</label>
+                        <div class="result-content">
+                            <span id="${fnName}-origin-time">0</span>
+                            <span>ms</span>
+                        </div>
+                    </div>
+                    <div class="result-item last-item">
+                        <label>原始结果</label>
+                        <div class="result-content">
+                            <span id="${fnName}-origin-testarea"></span>
+                        </div>
+                    </div>
+                    <div class="result-item last-item">
+                        <label>运行时间</label>
+                        <div class="result-content">
+                            <span id="${fnName}-time">0</span>
+                            <span>ms</span>
+                        </div>
+                    </div>
+                    <div class="result-item last-item">
+                        <label>运行结果</label>
+                        <div class="result-content">
+                            <span id="${fnName}-testarea"></span>
+                        </div>
+                    </div>
+                </div>
+            `)
+        }
+    }
+
+    function linkCurrent () {
+        const target = event.currentTarget
+        const fnName = target.getAttribute('data-name')
+        const $li = document.querySelectorAll('li')
+        $li.forEach(node => {
+            node.classList.remove('active')
+        })
+        target.classList.add('active')
+        // const $cont = document.querySelectorAll('.each-cont')
+        // $cont.forEach(node => {
+        //     node.classList.remove('active')
+        // })
+        // const $currentCont = document.querySelector(`#${fnName}`)
+        // $currentCont.classList.add('active')
+    }
+
+    function running () {
+        if (!window.lodash) return
+        const target = event.currentTarget
+        const fnName = target.getAttribute('data-name')
+        const obj = window.lodash[fnName]
+        let params = []
+        const $inputs = document.querySelectorAll(`input[name^="${fnName}"]`)
+        $inputs.forEach(node => {
+            let value = null
+            try {
+                value = JSON.parse(node.value)
+            } catch {
+                value = node.value
+            }
+            params.push(value)
+        })
+        try {
+            const timeStart = performance.now()
+            console.time('origin')
+            const result = obj.fn(...params)
+            console.timeEnd('origin')
+            const timeEnd = performance.now()
+            const timeStart2 = performance.now()
+            console.time('current')
+            const result2 = _[fnName](...params)
+            console.timeEnd('current')
+            const timeEnd2 = performance.now()
+            document.querySelector(`#${fnName}-origin-time`).innerText = timeEnd2 - timeStart2
+            document.querySelector(`#${fnName}-time`).innerText = timeEnd - timeStart
+            document.querySelector(`#${fnName}-origin-testarea`).innerText = JSON.stringify(result2)
+            document.querySelector(`#${fnName}-testarea`).innerText = JSON.stringify(result)
+            averageTime(_[fnName], params, 'origin')
+            averageTime(obj.fn, params, 'current')
+        } catch {
+            alert('传入参数有误')
+        }
+    }
+
+    function getInputList (title, obj) {
+        const inputLen = obj.argumentlen || 0
+        let result = ''
+        for (let i = 1; i <= inputLen; i++) {
+            result += `<input name="${title + i}" />`
+        }
+        return result
+    }
+
+    function averageTime (fn, params, title) {
+        const startTime = new Date().getTime()
+        for (let i = 0; i < 10000; i++) {
+            fn(...params)
+        }
+        const endTime = new Date().getTime()
+        const averageTime = (endTime - startTime) / 10000
+        console.log(`${title}平均花费时间: ` + averageTime + '-' + (endTime - startTime))
+    }
+</script>
+</html>

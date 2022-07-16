@@ -1,0 +1,157 @@
+<!--==============================================================================-->
+<!-- File Name: html/html5                                                        -->
+<!-- Author: zhubo                                                                -->
+<!-- mail: 286154864@qq.com                                                       -->
+<!-- Create Time: 2017-06-28                                                      -->
+<!--==============================================================================-->
+
+<!DCOTYPE html>
+<html>
+  <head>
+    <meta charset="urf-8">
+    <!-- meta标签常见的用法 -->
+    <!-- 设置对网页的一些描述信息，可用做搜索引擎 -->
+    <meta name="author" content="zhubo">                 <!--作者-->
+    <meta name="description" content="html-demo-study">  <!--描述-->
+    <meta name="copyright" content="本页版权归个人所有">    <!--版权-->
+    <meta name="keywords" content="html,study,readonly"> <!--关键词-->
+    <meta name="generator" content="code">               <!--编辑器-->
+    <!-- 设置特定的HTTP指令 -->
+    <!-- 5秒之后重新刷新页面，页面刷新完了之后又拿到这个指令，循环 -->
+    <!--<meta http-equiv="refresh" content="5">-->
+    <!-- 5秒之后重定位新的url -->
+    <!--<meta http-equiv="refresh" content="5;http://www.baidu.com"> -->
+    <!-- 网页在缓存中的过期时间，一旦过期，必须到服务器上重新调阅 content必须设置GMT格式或者数字表示多少时间后 -->
+    <meta http-equiv="expires" content="31 DEC 2017">
+    <title>HTML的学习</title>
+    <base href="file:///Users/zb/zbo/html-demo/">
+    <base target="_blank">
+    <!-- 这个样式文件的路径一定要这么写 file:///Users/zb/zbo/html-demo/demo.css 不然就是在base里面加相对路径而且以'/'结尾 -->
+    <!-- 否则浏览器会报错说这个是css文件却发送的MIMEtype是type/html -->
+    <link rel="stylesheet" href="demo.css">
+  </head>
+  <body>
+
+    <!-- 标题有6个h1开始，对应浏览器有默认样式，abbr缩写也有默认下划线样式 -->
+    <h3 class="title-three"><abbr class="title-abbr" title="查看源码可看到注释">个人主页</abbr></h3>
+    <div class="top-copy">- - - - - &copy; 归个人所有</div><hr/>
+
+    <!-- 两种引用方式 -->
+    <!-- br正常用法仅仅用于文本内容的换行，而切莫用于单纯的换行 -->
+    <q>每日积累</q>
+    <blockquote class="blockquote-text">
+      英雄的出处<br/>
+      来自于内心的强大<br/>
+      来自于对梦想的执着追求<br/>
+      和你所从事职业的坚持与踏实<br/>
+      以及面对浮躁浮华的淡定和定力
+    </blockquote>
+    <hr/>
+
+    <!-- 一般表单的标准语义化规范 -->
+    <!-- form的属性：action、method、autocomplete -->
+    <!-- fieldset标签分组，‘legend’作为一个组的标题，label作为输入控件文本标签 -->
+    <!-- 输入控件：input的特殊类型(h5，如date,week,time以及list属性和‘datalist’标签) -->
+    <!-- 输入控件：select标签，‘optgroup’标签作为一个选择项组(label属性作为该选择项的标题) -->
+    <!-- 输入控件：tabindex属性用于输入顺序 -->
+    <form action="" method="post" autocomplete="on">
+      <fieldset>
+        <legend>个人资料</legend>
+        <label for="username">姓名：</label>
+        <input type="text" id="username" name="username" placeholder="请输入姓名" tabindex="1" required/>
+        <label>性别：</label>
+        <input type="radio" id="man" name="sex" checked/><label for="man">男</label>
+        <input type="radio" id="woman" name="sex"/><label for="woman">女</label>
+        <label for="hobby">爱好：</label>
+        <select id="hobby" name="hobby">
+          <optgroup label="书籍"> 
+            <option value="1">追风筝的人</option>
+            <option value="2">偷影子的人</option>
+            <option value="3">人性的弱点</option>
+          </optgroup>
+          <optgroup label="运动">
+            <option value="4">跑步</option>
+            <option value="5">锻炼</option>
+            <option value="6">打球</option>
+          </optgroup>
+        </select>
+      </fieldset>
+      <fieldset>
+        <legend>计划安排</legend>
+        <label for="moring">早晨：</label>
+        <input type="text" id="moring" name="moring" list="things" placeholder="请输入应该做得事" tabindex="2" required/>
+        <datalist id="things">
+          <option>喝水</option>
+          <option>做操</option>
+        </datalist>
+        <label for="noon">中午吃饭时间：</label>
+        <input type="time" id="noon" name="noon" required/>
+        <label for="night">晚上跑步时间：</label>
+        <input type="week" id="night" name="night" tabindex="3" required/>
+        <label for="end">最终结束于：</label>
+        <input type="range" id="end" max="100" min="1" value="80" name="end"/>
+      </fieldset>
+      <input type="reset"/>
+      <input type="submit"/>
+    </form>
+    <hr/>
+
+    <!-- 这是h5新增的一些无表现的语义化标签 -->
+    <header>这是头部</header>
+    <nav>
+      <a href="javascript:;">这是导航1</a>
+      <a href="javascript:;">这是导航2</a>
+      <a href="javascript:;">这是导航3</a>
+    </nav>
+    <footer>这是尾部</footer>
+    <section>
+      <hgroup>这是节、区、段里面的标题</hgroup>这是去头去尾的内容部分
+    </section>
+    <figure title="可放一些图像、图表、照片、代码">
+      <figcaption>这是流内容标题</figcaption>这是流内容
+    </figure>
+    <aside>页面内容之外的内容</aside>
+    <article>这是文章</article>
+    <details>
+      <summary>元素细节标题</summary>
+      描述文档或文档某个部分的细节、仅chrome支持
+    </details>
+    <dialog open>对话框或窗口</dialog>
+    <hr/>
+
+    <!-- 文本格式化 -->
+    <em>归处：</em><strong>心安</strong>
+    <em>爱好：</em>
+    <del datetime="2017-05-01">没有</del><sup>？</sup>&nbsp;
+    <ins>有</ins><sub>？</sub>
+    <br/>
+    <!-- 特殊标签以下为H5有的 -->
+    <!-- 进度 -->
+    <progress max="100" value="80"></progress>
+    <!-- 度量 -->
+    <meter max="100" value="20" high="80" low="20" optimum="75"></meter>
+    <!-- 突出  -->
+    <mark>今天的你比昨天的你更好</mark><br/>
+    <hr/>
+
+    <!-- table的使用，虽然说table里面的属性都应该写进css但是我发现没找到对应的css，暂时放在里面 -->
+    <!-- 下面是table里面的所有语义化html,colspan与rowspan属性 -->
+    <!-- 基本上不要使用table布局,因为很小的更改也会导致table整个内容的重排 -->
+    <table border="1px" cellspacing="0px" cellpadding="5px">
+      <!-- table标题 -->
+      <caption>善始善终</caption>
+      <thead></thead>
+      <tbody>
+        <tr>
+          <th rowspan="2">a</th>
+          <th>b</th>
+          <th>c</th>
+        </tr>
+        <tr>
+          <td colspan="2">d</td>
+        </tr>
+      </tbody>
+      <tfoot></tfoot>
+    </table>
+  </body>
+</html>
