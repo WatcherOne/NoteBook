@@ -10,7 +10,7 @@
  * 只有几种语言（如土耳其语）具有地方特有的大小写映射, 所有该方法的返回值通常与 toLowerCase() 一样
  * 在 土耳其 中： i 与 İ 成对（小大写） ı 与 I 成对（小大写）
  * [即 小写i 与 大写I 在土耳其中是另外匹配的！！！]
- * [A. 在浏览器中设置语言为'土耳其' / 或使用参数配置语言环境 ('tr' // 土耳其) ('en-US' // 美国) ('zh-CN' // 中文简体) ('zh-TW' // 中文繁体)]
+ * [A. 在浏览器中设置语言为'土耳其' / 或使用参数配置的宿主环境当前区域语言环境 ('tr' // 土耳其) ('en-US' // 美国) ('zh-CN' // 中文简体) ('zh-TW' // 中文繁体)]
  * [B. 使用 toLocaleLowerCase()才会采用土耳其大小写规则]
  * 
  * 特殊符号
@@ -29,10 +29,10 @@
  * 3：大小切换
 *************************************************************/
 function caseSwitch (value, type = 1) {
-    if (!value) return
+    if (!value) return ''
     if (value.constructor === Number || value.constructor === String) {
         const str = value.toString().trim()
-        if (!str) return
+        if (!str) return ''
         if (type === 1) {
             return str.toLowerCase()
         }
@@ -40,26 +40,49 @@ function caseSwitch (value, type = 1) {
             return str.toUpperCase()
         }
         if (type === 3) {
-            let result = ''
-            const UP_MIN_CODE = 'A'.charCodeAt()
-            const UP_MAX_CODE = 'Z'.charCodeAt()
-            const LOW_MIN_CODE = 'a'.charCodeAt()
-            const LOW_MAX_CODE = 'z'.charCodeAt()
-            for (let i of str) {
-                const code = i.charCodeAt()
-                if (code >= UP_MIN_CODE && code <= UP_MAX_CODE) {
-                    result += String.fromCharCode(code + 32)
-                } else if (code >= LOW_MIN_CODE && code <= LOW_MAX_CODE) {
-                    result += String.fromCharCode(code - 32)
-                } else [
-                    result += i
-                ]
-            }
-            return result
+            console.log(changeCase1(str))
+            return changeCase(str)
         }
     } else {
         throw new TypeError('parameter type is error')
     }
+}
+
+function changeCase (str) {
+    let result = ''
+    const UP_MIN_CODE = 'A'.charCodeAt()
+    const UP_MAX_CODE = 'Z'.charCodeAt()
+    const LOW_MIN_CODE = 'a'.charCodeAt()
+    const LOW_MAX_CODE = 'z'.charCodeAt()
+    for (let i of str) {
+        const code = i.charCodeAt()
+        // 可换成正则判断
+        // /[A-Z]/.test(i) 为大写
+        // /[a-z]/.test(i) 为小写
+        if (code >= UP_MIN_CODE && code <= UP_MAX_CODE) {
+            result += String.fromCharCode(code + 32)
+        } else if (code >= LOW_MIN_CODE && code <= LOW_MAX_CODE) {
+            result += String.fromCharCode(code - 32)
+        } else [
+            result += i
+        ]
+    }
+    return result
+}
+
+function changeCase1 (str) {
+    let result = ''
+    for (let i of str) {
+        const code = i.charCodeAt()
+        if (/[A-Z]/.test(i)) {
+            result += String.fromCharCode(code + 32)
+        } else if (/[a-z]/.test(i)) {
+            result += String.fromCharCode(code - 32)
+        } else {
+            result += i
+        }
+    }
+    return result
 }
 
 console.log(caseSwitch('dadGADWQ$@12311.DQwewe', 3))
