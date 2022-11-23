@@ -63,9 +63,9 @@ function changeCase (str) {
             result += String.fromCharCode(code + 32)
         } else if (code >= LOW_MIN_CODE && code <= LOW_MAX_CODE) {
             result += String.fromCharCode(code - 32)
-        } else [
+        } else {
             result += i
-        ]
+        }
     }
     return result
 }
