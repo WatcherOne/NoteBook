@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vue.min.js"></script>
+    <script src="./router.min.js"></script>
+    <title>RouterLink</title>
+</head>
+<body>
+    <div id="box">
+        <div @click="testClick">主题测试</div>
+        <router-link to="/a/1" @click="testClick">跳转A1 </router-link>
+        <router-link to="/a/2" @click="testClick">跳转A2 </router-link>
+        <router-link :to="{ path: '/aa', query: { id: 2 } }">跳转AA?2 </router-link>
+        <router-link :to="{ path: '/aa', query: { id: 3 } }">跳转AA?3 </router-link>
+        <router-link to="/b" aria-current-value="time">跳转B</router-link>
+        <!-- 
+            router-link 是 vue-router 提供的内置组件
+            [直接在该组件上绑定点击事件, 一般会先进点击事件, 再跳转路由, 一般不推荐这样写]
+
+            1. to --- 必传, 目标路由链接（RouteLocationRaw）
+                'home'  '/home' [最后有'/']
+                { path: '/home', params: { id: 3 } }   // /home/3
+                { name: 'home', query: { type: 4 } }   // /home?type=4
+                { path: '/home', hash: '#44' }          // /home#44
+                { path: '/home', replace: true }        // /home (只是调用 router.replace)
+
+                path属性的地址如果前面没有 / 可能会带上基础路径！！！ 如 配置 'b', 当从 a页面跳转 到 '/a/b' 则会 将 'b' 变成 '/a/b'
+                path 以编码方式提供, 而 params/query/hash 一定不要这样, 因为它们会被路由编码
+            2. replace --- 默认 false
+                false - 内部执行 router.push()
+                true  - 内部执行 router.replace() 导航不会留下 history 记录 
+            3. tag --- 将 router-link 渲染成某种标签 [vue-router4 移除, 用 v-slot 形式]
+            4. active-class --- 链接激活时, 应用于渲染的 <a> 的 class
+                默认值：'router-link-active' 或 通过路由的构造选项 linkActiveClass 来全局配置
+            5. exact-active-class --- 链接精准激活, 应用于渲染的 <a> 的 class
+                默认值：'router-link-exact-active' 或 通过路由的构造选项 linkExactActiveClass 来全局配置
+
+                VueRouter.createRouter({
+                    linkActiveClass: 'test'
+                })
+
+            6. exact --- 是否精准匹配激活  精准后，当 '/' 时, 只有'/'才精准匹配, 其它不会
+                [vue-router4 移除, 默认都为true]
+            7. event --- 声明可以用来触发导航的事件。可以是一个字符串或是一个包含字符串的数组
+                [vue-router4 移除, 默认为'click'] 'mouseover'
+            
+            7. aria-current-value --- 当链接根据精确匹配规则激活时配置的 aria-current 的值
+                默认值：'page'   ['page', 'step', 'location', 'date', 'time', 'true', 'false']
+                aria 就是描述标签在可视化的情况下的信息，是为需要帮助人士准备的辅助工具，没有特殊情况，我们使用默认值就可以了
+
+            8. custom --- <router-link> 是否应该将其内容包裹在 <a> 元素中
+                默认 false 不包裹（表示自定义, 即不包裹）
+            9. v-slot --- 插槽形式 可以将激活的 class 应用在外层元素 【复杂*】
+        -->
+        <!-- :key="path" -->
+        <!-- <router-view></router-view> -->
+        <router-view v-slot="{ Component }">
+            <keep-alive>
+              <component :is="Component" />
+            </keep-alive>
+        </router-view>
+    </div>
+</body>
+<script src="./routerLink.js"></script>
+<!-- 
+    难点：
+    1. router-link  v-slot （custom）比较扩展性的功能
+    2. 什么情况下组件会被复用！？
+       *** 当跳转不同的路径, 只要引用了同一个组件, 组件会被复用！
+           -- * 在 router-view 设置 key 则不会引用同一个组件！
+           -- * 如果有缓存路由在, 即使不同页面之间来回跳, 只要有一个组件被用过都会复用！
+           -- * 没有缓存时, 跳转路由间有重复组件则会复用, 且不管是否是嵌套的, 只要重复组件就会复用
+       *** 当跳转路由时只有当动态参数或query不同时, 才会进入周期函数'beforeRouteUpdate'
+           -- 只有 跳转路由时 动态参数或query不同时, 才会进入！！！(从新路由跳到另一个路由的不同query也不会）
+           -- * 只有相同路由前缀之间 :id 或 ? 之间切换时 才会进入)
+
+ -->
+</html>
