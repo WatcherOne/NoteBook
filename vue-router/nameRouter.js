@@ -80,8 +80,8 @@ const router = VueRouter.createRouter({
      *       { path: '/a', redirect: '/b' }
      *   ]
      *   
-     *   - 导航守卫并没有应用在跳转路由上，而仅仅应用在其目标上
-     *     在上面的例子中，在 /home 路由中添加 beforeEnter 守卫不会有任何效果。
+     *   - 导航守卫并没有应用在跳转路由上，而仅仅应用在'其目标上'
+     *     在上面的例子中，在 /a 路由中添加 beforeEnter 守卫不会有任何效果。
          - 在写 redirect 的时候，可以省略 component 配置，因为它从来没有被直接访问过，所以没有组件要渲染
          - 唯一的例外是嵌套路由：如果一个路由记录有 children 和 redirect 属性，它也应该有 component 属性
 

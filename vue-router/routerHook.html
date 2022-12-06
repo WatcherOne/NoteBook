@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./vue.min.js"></script>
     <script src="./router.min.js"></script>
-    <title>命名路由-命名视图-重定向-别名</title>
+    <title>路由导航守卫-guard</title>
 </head>
 <body>
     <div id="box">
         <router-link to="/a">跳转A </router-link>
         <router-link to="/b">跳转B </router-link>
-        <router-link to="/f">C的重定向 </router-link>
-        <router-view name="two"></router-view>
+        <router-link to="/c/1">跳转C1 </router-link>
+        <router-link to="/c/2">跳转C2 </router-link>
+        <router-link to="/d">跳转D </router-link>
         <router-view></router-view>
-        <!-- <router-view name="three"></router-view> -->
+        <router-view name="other"></router-view>
     </div>
 </body>
-<script src="./nameRouter.js"></script>
+<script src="./routerHook.js"></script>
 </html>
