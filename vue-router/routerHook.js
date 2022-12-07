@@ -141,11 +141,11 @@ const router = VueRouter.createRouter({
  *       --- v4.x后，第三个参数 next 是可选的了，采用下列方式
  *       --- 以下所有导航守卫的 next 都是可选的！！！！
  *         A. 通过 return undefined / true 调用下一个导航守卫
- *         B. 通过 return [path] 通用一个路由地址跳转到对应地址
+ *         B. 通过 return [path] 通用一个路由地址跳转到对应地址 【 return { path: '/a' } 】
  *         C. 通过 return false 取消当前导航
  *   
  *     2. 解析守卫：router.beforeResolve((to, from, next) => {...})
- *        - 与 router.beforeEach 类似
+ *        - 与 router.beforeEach 类似（需 next()）
  *        - 区别是在导航被确认之前, 同时在所有组件内守卫和异步路由组件被解析之后, 解析守卫就被调用
  *        - 是获取数据或执行任何其他操作（如果用户无法进入页面时你希望避免执行的操作）的理想位置
  * 
@@ -160,7 +160,8 @@ const router = VueRouter.createRouter({
  *        - 在路由配置时配置
  *        - 在前置守卫 router.beforeEach 之后, 解析守卫 router.beforeResolve 之前
  *          因为解析守卫是在所有组件内守卫与异步路由组件被解析后才被调用
- *        - beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发
+ *        *** beforeEnter 守卫 只在进入路由时触发，不会在 params、query 或 hash 改变时触发
+ *          (只跟路由配置处的走向有关，跟组件是否复用无关！)
  *        * v4.x: 可以将一个函数数组传递给 beforeEnter, 函数本身返回 路由地址对象。
  * 
  *     5. 组件内的守卫：
@@ -210,6 +211,8 @@ const router = VueRouter.createRouter({
  *    
  * 
  *   - 当多个命名视图时，导航顺序整体不变，只是组件里面的导航顺序问题，一般按谁在前谁先进入
+ *   - 其实 params与query 的改变（是复用组件问题）但：实际上路由配置处的路由匹配并没有发生变化
+ *     故 beforeEnter 不会进去，组件内的导航守卫只有 beforeRouteUpdate 会回调
  */       
 
 const app = Vue.createApp({})
