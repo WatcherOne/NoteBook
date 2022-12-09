@@ -15,7 +15,9 @@
         <router-link to="/a/2" @click="testClick">跳转A2 </router-link>
         <router-link :to="{ path: '/aa', query: { id: 2 } }">跳转AA?2 </router-link>
         <router-link :to="{ path: '/aa', query: { id: 3 } }">跳转AA?3 </router-link>
-        <router-link to="/b" aria-current-value="time">跳转B</router-link>
+        <router-link to="/b" aria-current-value="time">跳转B <br/></router-link>
+        <router-link :to="{ path: '/b', hash: '#3' }" aria-current-value="time">跳转B# </router-link>
+        <router-link :to="{ path: '/b', hash: '#4' }" aria-current-value="time">跳转B#</router-link>
         <!-- 
             router-link 是 vue-router 提供的内置组件
             [直接在该组件上绑定点击事件, 一般会先进点击事件, 再跳转路由, 一般不推荐这样写]

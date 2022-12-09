@@ -1,5 +1,8 @@
 const A = {
     template: '<div>AAA</div>',
+    created() {
+        console.log('A-created')
+    }
 }
 const B = {
     template: '<div>BBB</div>',
@@ -109,13 +112,13 @@ const router = VueRouter.createRouter({
 //     next()
 //     console.log('beforeEach-after')
 // })
-// router.beforeResolve((to, from, next) => {
-//     console.log('beforeResolve', to, from)
-//     next()
-// })
-// router.afterEach((to, from) => {
-//     console.log('afterEach', to, from)
-// })
+router.beforeResolve((to, from, next) => {
+    console.log('beforeResolve', to, from)
+    next()
+})
+router.afterEach((to, from) => {
+    console.log('afterEach', to, from)
+})
 
 /**
  *   “导航” 表示路由正在发生改变
@@ -180,7 +183,7 @@ const router = VueRouter.createRouter({
  *        }
  * 
  *        beforeRouteUpdate(to, from, next) {
- *          // 在当前路由改变，但是该组件被复用时调用（只query与params改变时）
+ *          // 在当前路由改变，但是该组件被复用时调用（只query与params与hash改变时）
  *          // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
  *          // 可以访问组件实例 `this`
  *          // - 当复用时, 就不会进入另外两个了！
@@ -211,11 +214,28 @@ const router = VueRouter.createRouter({
  *    
  * 
  *   - 当多个命名视图时，导航顺序整体不变，只是组件里面的导航顺序问题，一般按谁在前谁先进入
- *   - 其实 params与query 的改变（是复用组件问题）但：实际上路由配置处的路由匹配并没有发生变化
+ *   - 其实 params与query与hash 的改变（是复用组件问题）但：实际上路由配置处的路由匹配并没有发生变化
  *     故 beforeEnter 不会进去，组件内的导航守卫只有 beforeRouteUpdate 会回调
+ * 
+ * 
+ *   - 1. router-view 渲染的组件才有导航守卫, 对应组件内的子组件是没有的
+ *   - 2. 对于 router-view 的 key 来说, 只是不复用组件是 vue 范畴, 但还是相当与 至于 params 的 改变时
+ *        *- 路由的导航还是会 只进入组件内的导航守卫 beforeRouteUpdate
+ *        - 跟组件复用不复用没有关系
+ *   - 3. push()的promise回调是 在 router.beforeResolve 导航被确认之后, 组件内 created() 之后, mounted() 之前！
+ *        - 导航方法都会返回一个 Promise, 让我们可以等到导航完成后才知道是成功还是失败
+ *        - 常用于故障检测
  */       
 
-const app = Vue.createApp({})
+const app = Vue.createApp({
+    methods: {
+        link() {
+            this.$router.push('/a').then(() => {
+                console.log('ok-结束')
+            })
+        }
+    }
+})
 
 app.use(router)
 app.mount('#box')

@@ -87,6 +87,7 @@ const router = VueRouter.createRouter({
      *  一、this.$router.push(location, onComplete?, onAbort?)
      * 
      *  *. 使用 .push() 方法, 会向 history 栈添加一个新的记录。点击浏览器后退按钮时, 则回到之前的 URL
+     *  *. 不管哪种方式的变化, 只要路由变了（不管params、query、hash都会添加一个新的记录）
      *  *. 你点击 <router-link> 时, 会在内部调用 .push()
      *  
      *  1. location 即路由地址配置对象（路由跳转url字符串 或 可配置对象）

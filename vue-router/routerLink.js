@@ -12,6 +12,14 @@ const B = {
     template: '<div>bar</div>',
     created() {
         console.log('B-created')
+    },
+    beforeRouteEnter(to, from, next) {
+        console.log('B-beforeRouteEnter')
+        next()
+    },
+    beforeRouteUpdate(to, from, next) {
+        console.log('B-beforeRouteUpdate')
+        next()
     }
 }
 const C = {
@@ -27,7 +35,14 @@ const router = VueRouter.createRouter({
         // { path: '/a/1', component: A },
         // { path: '/a/2', component: A },
         { path: '/aa', component: A },
-        { path: '/b', component: B }
+        {
+            path: '/b',
+            component: B,
+            beforeEnter: (to, from, next) => {
+                console.log('bb--beforeEnter')
+                next()
+            }
+        }
     ]
     /**
      *   1. 动态路由
