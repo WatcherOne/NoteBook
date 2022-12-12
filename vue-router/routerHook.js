@@ -225,7 +225,22 @@ router.afterEach((to, from) => {
  *   - 3. push()的promise回调是 在 router.beforeResolve 导航被确认之后, 组件内 created() 之后, mounted() 之前！
  *        - 导航方法都会返回一个 Promise, 让我们可以等到导航完成后才知道是成功还是失败
  *        - 常用于故障检测
- */       
+ * 
+ *   故障检测
+ *   const { NavigationFailureType } = VueRouter
+ *   -. redirected: 在导航守卫中调用了 next(newLocation) 重定位到了其他地方 [v4.0无]
+ *   1. aborted：在导航守卫中调用了 next(false) 中断了本次导航
+ *   2. cancelled：在当前导航还没有完成之前又有了一个新的导航；比如，在等待导航守卫的过程中又调用了 router.push。
+ *   3. duplicated：导航被阻止，因为我们已经在目标位置了
+ *  
+ *   重定向的检测不同：router.currentRoute.value.redirectedFrom === turth
+ *     - 重定向不会阻止导航，而是创建一个新的导航
+ *  
+ *   不要在路由中使用异步组件；异步组件仍然可以在路由组件中使用，但路由组件本身就是动态导入的
+ *   router.hasRoute()：检查路由是否存在。
+ *   router.getRoutes()：获取一个包含所有路由记录的数组。  
+ * 
+ */
 
 const app = Vue.createApp({
     methods: {
