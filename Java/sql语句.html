@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 9.6.2 (469632)"/><meta name="altitude" content="0"/><meta name="author" content="watcher"/><meta name="created" content="2023-02-01 12:41:48 +0000"/><meta name="latitude" content="30.56437683105469"/><meta name="longitude" content="104.0848060122613"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2023-02-01 12:41:48 +0000"/><title>sql语句</title></head><body>数据操作语言 (DML)
+<div><br/></div>
+<div>【 select、 insert into、update、delete】</div>
+<div><br/></div>
+<div>1. SQL语句对大小写不敏感</div>
+<div>2. SQL使用单引号来环绕文本值（部门数据库系统也接受双引号）</div>
+<div>3. 如果是数值类，请不要使用引号</div>
+<div><br/></div>
+<div><br/></div>
+<div>SELECT</div>
+<div>1. select 列名,列名... from tableName</div>
+<div>2. select * from tableName             // * 表示选取所有列的快捷方式</div>
+<div>3. select 1,3,列名 from tableName   // 如果列名是纯值类型，则结果的列名与列值都是纯值（不影响查询出来的条数）</div>
+<div><br/></div>
+<div>DISTINCT 列</div>
+<div>1. select DISTINCT 列名,列名 from tableName</div>
+<div>     // 在列名前加关键词，会返回唯一不同的值（会影响本身查询的条数）</div>
+<div>     // 必须放在查询字段的开头，即第一个参数</div>
+<div>     // 只能在 select 语句中使用</div>
+<div>     // 当 distinct 后面多个列名，则表示多个字段去重（会影响本身查询的条数）</div>
+<div>     // 如果想按某一个列名来去重 并还要输出其它列名，则用 group by 或 其它函数来解决</div>
+<div><br/></div>
+<div>WHERE 列 运算符 值</div>
+<div>1. =  &gt;  &lt;  &gt;= &lt;=</div>
+<div>2. &lt;&gt;          // &lt;&gt; 表示不等于（某些版本可以写成 !=）</div>
+<div><br/></div>
+<div>LIKE [SQL通配符]</div>
+<div>// 搜索某种模式</div>
+<div>1. '%'             // 占位符表示0个或多个字符</div>
+<div>   A. '%abc'    // 查询列值以abc结尾的</div>
+<div>   B. 'abc%'    // 查询列值以abc开头的</div>
+<div>   C. '%abc%' // 查询列值包含abc的</div>
+<div>   D. 'ab%c'   //  查询列值以ab开头，c结尾的</div>
+<div>2. _               // 仅代替一个字符</div>
+<div>   A. '_abc'    //  查询列值第一个字符之后是abc的</div>
+<div>   B. 'h_m_'   //  查询列值以h开头，然后任意一个字符，再m字符，再任意一个字符</div>
+<div>3. [charlist]    // 字符列中的任何单一字符 【正则表达式的一种】</div>
+<div>   A. '[abc]%'  // 查询列值以a或b或c开头的</div>
+<div>   B. '[!abc]%' // 查询列值不以a或b或c开头的</div>
+<div>// "%"#{}"%" - 只能双引号</div>
+<div>// '%${}%'  - 单引号双引号都可以</div>
+<div>// concat('%', #{}, '%')  - 单引号双引号都可以</div>
+<div>4. NOT LIKE  // 不匹配的结果集</div>
+<div><br/></div>
+<div><br/></div>
+<div>CONCAT(value1, value2,...) 函数</div>
+<div>// concat函数用于拼接字符串</div>
+<div>// concat('%', #{name}, '%')</div>
+<div><br/></div>
+<div>BETWEEN  value1  AND  value2</div>
+<div>// 在某个范围内</div>
+<div>// 不同的数据库对 BETWEEN...AND 操作符的处理方式是有差异的</div>
+<div>// 某些数据库会列出介于 "Adams" 和 "Carter" 之间的人，但不包括 "Adams" 和 "Carter" ；某些数据库会列出介于 "Adams" 和 "Carter" 之间并包括 "Adams" 和 "Carter" 的人；而另一些数据库会列出介于 "Adams" 和 "Carter" 之间的人，包括 "Adams" ，但不包括 "Carter"</div>
+<div>// mysql中是 双闭区间</div>
+<div>NOT BETWEEN    // 如果是范围之外的请使用NOT操作符</div>
+<div><br/></div>
+<div>IN (value1, value2, ...)</div>
+<div>// 规定可以在Where语句中多个值</div>
+<div>1. in ('a', 'b')   // 查询列值为a和b的</div>
+<div><br/></div>
+<div><br/></div>
+<div>AND OR</div>
+<div>// 运算符，用于多个条件的结合</div>
+<div><br/></div>
+<div><br/></div>
+<div>GROUP BY 列</div>
+<div>// 用于结合合计函数使用，根据一个或多个列对结果集进行分组</div>
+<div>1. group by 列      // 按某一列分组，查询出来的都是分组过后的，一组里面的其他列显示的是该组里面的第一条数据值</div>
+<div>2. group by 列, 列 // 按多列分组</div>
+<div>3. select count(*) from table1 group by 列  // 按列分组后计算每组总条目</div>
+<div><br/></div>
+<div>GROUP_CONCAT()</div>
+<div>// 将某个字段列 拼接成字符串，以逗号连接</div>
+<div><br/></div>
+<div><br/></div>
+<div>ORDER BY 列[DESC]</div>
+<div>// 用于根据指定列对结果集进行排序，默认升序</div>
+<div>// DESC 选择降序的方式</div>
+<div>1. order by 列1, 列2          // 先按列1升序再按列2升序</div>
+<div>2. order by 列1 desc, 列2  // 先按列1降序再按列2升序</div>
+<div>3. ORDER BY 列1 is not null，列2  // 可以做是否NUll的判断</div>
+<div><br/></div>
+<div><br/></div>
+<div>TOP子句 SELECT TOP number|percent</div>
+<div>// 用于规定要返回的记录的数目</div>
+<div>// 并非所有数据库系统都支持TOP子句</div>
+<div>1. select top 2 * from tableName   // 选取头两条数据</div>
+<div>2. select * from tableName limit 2 // mysql使用这种方式与上面等效（当前mysql不支持TOP）</div>
+<div>3. select top 50 percent from ...     // 选取50%的记录</div>
+<div><br/></div>
+<div>LIMIT（mysql特有的，是sql语句最后执行的一个环节）</div>
+<div>1. limit number    // 选择指定条数记录 = limit 0, number</div>
+<div>2. limit m, n         // 指定从m+1条开始，取n条数据，m是从0开始的</div>
+<div>3. limit 2,3           // 第3条数据开始，总共取3条数据</div>
+<div><br/></div>
+<div>Alias 别名</div>
+<div>// 可以为列名称和表名称指定别名</div>
+<div>1. tableName as a</div>
+<div>2. 列名 as b</div>
+<div><br/></div>
+<div>JOIN 表名 ON 条件</div>
+<div>// 用于根据两个或多个表中的列之间的关系来查询</div>
+<div>// 等效的是 可以 从两个表获取数据来做个关联  select a.xx from table1,table2 where <a href="http://table1.id">table1.id</a> = table2.pid</div>
+<div>// 上面多表查询如果没有 where 则就是 table1*table2 的总条数了</div>
+<div>1. JOIN：如果表中有至少一个匹配，则返回行（同上方式）</div>
+<div>2. INNER JOIN：== JOIN</div>
+<div>3. LEFT JOIN:   即使右表中没有匹配，也从左表返回所有行（返回所有行的意思不是 查询条数==左表总条数，而是在右表没有匹配到时，也会返回左表的数据！)</div>
+<div>4. RIGHT JOIN: 即使左表中没有匹配，也从右表返回所有行（返回所有行同上）</div>
+<div>5. FULL JOIN: 只要其中一个表存在匹配就返回行，某一个表存在就返回，全连接（在mysql中有各种问题）</div>
+<div><br/></div>
+<div><br/></div>
+<div>Date函数</div>
+<div>// 内建的日期函数，可以处理日期格式等</div>
+<div>// DATE_FORMAT(列值)</div>
+<div>// select CURRENT_DATE() as time from tableName</div>
+<div><br/></div>
+<div>Nulls</div>
+<div>// NULL 值的处理方式与其他值不同。</div>
+<div>// NULL 用作未知的或不适用的值的占位符</div>
+<div>// NULL和0无法比较，它们是不等价的</div>
+<div>// 无法用比较运算符来测试NULL值</div>
+<div>// 必须使用 IS NULL 和 IS NOT NULL</div>
+<div>// where 列 IS NOT NULL</div>
+<div><br/></div>
+<div>NULL 函数</div>
+<div>// mysql中是 IFNULL(列名, value)</div>
+<div>// IFNULL(price, 0) // 如果是NULL则用0</div>
+<div>// COALESCE(a,b,c) // 可以返回参数中的第一个非空表达式（也只有NULL才为空）, 可以多个参数直到返回第一个为空的</div>
+<div><br/></div>
+<div><br/></div>
+<div>SQL有很多用于计数和计算的内建函数</div>
+<div>// select function(列) from 表</div>
+<div>// = Aggregate (合计函数) + Scalar（操作面对某个单一的值）</div>
+<div><br/></div>
+<div>1. AVG()</div>
+<div>// 返回数值列的平均值，NULL值不包括在计算中</div>
+<div>    A. select avg(price) from table1   // 返回的是一个平均数的数值</div>
+<div>    B. select * from table1 where table1.price &gt; (A表达式)  // 返回是一个大于平均值的查询集合了</div>
+<div><br/></div>
+<div>2. COUNT()</div>
+<div>// 返回指定列的值的数目（NULL 不计入）</div>
+<div>    A. select count(*) from table1  // 返回table1的行数</div>
+<div>    B. select count([DISTINCT 列]) from table1 // 返回指定列[不同值]的数目</div>
+<div><br/></div>
+<div>3. FIRST()</div>
+<div>// 返回指定字段中第一个记录的值 【mysql好像不支持】</div>
+<div>    A. select first(列) from table1</div>
+<div><br/></div>
+<div>4. LAST()</div>
+<div>// 同上原理</div>
+<div><br/></div>
+<div>5. MAX()</div>
+<div>// 返回一列中的最大值，NULL不包含在计算中</div>
+<div>// 也可以用于文本，按字母顺序排列 / 时间</div>
+<div>    A. select max(列) from table1  // 返回最大值</div>
+<div><br/></div>
+<div>6. MIN()</div>
+<div>// 同上原理</div>
+<div><br/></div>
+<div>7. SUM()</div>
+<div>// 返回数值列的总数（总额）</div>
+<div>    A. select sum(price) from table1  // 计算合计值</div>
+<div><br/></div>
+<div><br/></div>
+<div>HAVING语句</div>
+<div>// 跟where作用相同，限制条件</div>
+<div>// 因为where语句中无法与合计函数一起使用，故产生了HAVING</div>
+<div>// where 条件是 group by 之前使用</div>
+<div>// having 条件是 group by 之后使用</div>
+<div>// select from where group by HAVING 【位置】</div>
+<div>1. select * from table group by customer HAVING sum(price) &lt; 2000  // 筛选出总金额小于2000的客户</div>
+<div>2. select * from table where...   // 可以结合where一起限制</div>
+<div><br/></div>
+<div><br/></div>
+<div>UCASE()函数</div>
+<div>// 将列字段值转换成大写，是字母的转，不是的正常返回</div>
+<div>1. select ucase(type) from table   // 将 type 列的值转成大写</div>
+<div>LCASE()函数</div>
+<div>// 将列字段值转换成小写，同上原理</div>
+<div><br/></div>
+<div>MID()函数</div>
+<div>// 用于从文本字段中提取字符</div>
+<div>// MID(列，start, length) from table</div>
+<div>// start 开始位置，起始值为1</div>
+<div>// length 返回的字符数量，省略则返回剩余文本</div>
+<div>1. select mid(name, 3) from table  // 将name列的值 从第3个字符截取后面的 返回</div>
+<div><br/></div>
+<div>LEN()函数 【mysql中是 LENGTH】</div>
+<div>// 返回列文本字段的长度</div>
+<div>1. select len(name) from table</div>
+<div><br/></div>
+<div>ROUND()函数</div>
+<div>// 用于把数值字段舍入为指定的小数位数</div>
+<div>// ROUND(列, decimals)  都必填</div>
+<div>// 四舍五入处理，而且列类型必须是浮点类型的否则正常返回</div>
+<div>1. select round(price, 2) from table</div>
+<div><br/></div>
+<div><br/></div>
+<div>MySQL里面特有（其它数据库系统有木有就不知道了）</div>
+<div><br/></div>
+<div>1. IF(condition, value1, value2)   // condition为true则用 value1，否则value2</div>
+<div>2. IF condition THEN statement_list ELSE statement_list END IF   // 判断condition决定用那个语句</div>
+<div>3. &lt;![CDATA[ ... ]]&gt; 由这个包裹的表示 不应由 XML 解析器进行解析的文本数据，因为&gt; &lt;= &gt;= &lt; 对于XML文件来说是非法的！</div>
+<div>   // 不用这种也可以，可能跟mybatis版本有关</div>
+<div>4. id is not null  === id != null</div>
+<div><br/></div>
+</body></html>
