@@ -2611,7 +2611,7 @@
       }
       return !nativeKeys(value).length;
     }
-  
+
     /**
      * Performs a deep comparison between two values to determine if they are
      * equivalent.
@@ -2643,7 +2643,7 @@
     function isEqual(value, other) {
       return baseIsEqual(value, other);
     }
-  
+
     /**
      * Checks if `value` is a finite primitive number.
      *
@@ -2700,7 +2700,7 @@
       var tag = baseGetTag(value);
       return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
     }
-  
+
     /**
      * Checks if `value` is a valid array-like length.
      *

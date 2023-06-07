@@ -21,9 +21,9 @@ const C = {
 }
 const D = {
     template: '<div>DDD{{this.resultId}}</div>',
-    props: ['resultId'],
+    props: ['resultId', 'id'],
     created() {
-        console.log('D', this.resultId)
+        console.log('D', this.resultId, this.id)
     }
 }
 

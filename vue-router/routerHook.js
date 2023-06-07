@@ -24,6 +24,9 @@ const B = {
 const C = {
     template: '<div>CCC-{{id}}</div>',
     props: ['id'],
+    created() {
+        console.log(66)
+    },
     beforeRouteEnter(to, from, next) {
         console.log('c-beforeRouteEnter')
         next(vm => {
@@ -78,7 +81,8 @@ const router = VueRouter.createRouter({
             beforeEnter: (to, from, next) => {
                 console.log('b-beforeEnter', to, from)
                 next()
-            }
+            },
+            alias: '/g'
         },
         {
             path: '/c/:id',
@@ -86,6 +90,15 @@ const router = VueRouter.createRouter({
             props: true,
             beforeEnter: (to, from, next) => {
                 console.log('c-beforeEnter', to, from)
+                next()
+            }
+        },
+        {
+            path: '/f',
+            component: C,
+            props: true,
+            beforeEnter: (to, from, next) => {
+                console.log('f-beforeEnter', to, from)
                 next()
             }
         },
@@ -107,11 +120,11 @@ const router = VueRouter.createRouter({
     ]
 })
 
-// router.beforeEach((to, from, next) => {
-//     console.log('beforeEach', to, from)
-//     next()
-//     console.log('beforeEach-after')
-// })
+router.beforeEach((to, from, next) => {
+    console.log('beforeEach', to, from)
+    next()
+    console.log('beforeEach-after')
+})
 router.beforeResolve((to, from, next) => {
     console.log('beforeResolve', to, from)
     next()

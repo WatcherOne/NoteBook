@@ -7,7 +7,9 @@
     <title>Demo</title>
 </head>
 <body>
-    <button type="button" id="btn">ÁÇπÂáªÂ∞ùËØï</button>
+    <div id="test"></div>
+    <template><span>ddddd</span></template>
+    <button type="button" id="btn">????</button>
 </body>
 <script src="./debounce.js"></script>
 <script>
@@ -15,5 +17,19 @@
     $btn.addEventListener('click', debounce3(function () {
         console.log(33, this)
     }, 1000))
+
+    const frag = document.createDocumentFragment()
+
+    const op = document.createElement('div')
+    const oText = document.createTextNode('i')
+    op.appendChild(oText)
+    frag.appendChild(op)
+
+    document.getElementById('test').appendChild(frag)
+    const obj = {
+        "msg": "Â?∫È??Â?¶Ôº?ËØ∑Á®?Â??È??ËØ?Ôº?",
+        "code": 500,
+        "dd": "Â?∫È??Â?¶Ôº?ËØ∑Á®?Â??È??ËØ?Ôº?"
+    }
 </script>
 </html>
