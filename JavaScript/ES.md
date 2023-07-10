@@ -1,4 +1,4 @@
-##### ES7（2016）
+##### ES7（ES2016）
 
 1. Array.prototype.includes
 > 用来判断一个【数组】和【字符串】中是否包含一个指定值（全等于）
@@ -113,3 +113,232 @@ str.padEnd(maxlength, padString)
 // 3. padString: 填充的字符串，若填充的字符串太多拼接后超过最大长度参数，则取填充字符串开始位置起
 'abc'.padEnd(6, '123456')   //  'abc123'
 ```
+
+
+##### ES9（2018）
+
+1. Async iterators 异步迭代器
+>  iterator.next().then(({value, done}) => {})
+
+2. Object rest properties 剩余属性
+>  ...
+
+```javascript
+let { a, b, ...rest } = obj
+// 1. 扩展运算符只能放在解构的最后面
+// 2. null 不能使用扩展运算符 let { a, ...rest } = null
+```
+
+3. Object spread properties 解构赋值
+
+```javascript
+let rest = { b: 2, c: 3 }
+let result = { a: 1, ...rest }
+```
+
+4. Promise.prototype.finally
+> 在 Promise 结束时，不管结果是 resolved 还是 rejected，都会调用 finaly 中的方法
+
+
+##### ES10（2019）
+
+1. Array.prototype.{flat, flatMap} 扁平化嵌套数组
+> flat(depth) 会按照一个可指定的深度遍历递归数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回
+> depth: 数组遍历的深度，默认为1
+> 返回一个新数组，不会改变旧数组
+
+```javascript
+arr.flat()   // 默认为1
+arr.flat(2)  // 扁平化到第二级
+arr.flat(-1) // 不会进行任何扁平化，返回相同原数组
+arr.flat(Infinity)  // 全部扁平化
+[1, , ,3].flat()    // 会移除数组中的空项 // [1, 3] 
+```
+
+> flatMap(callback) 首先使用映射函数映射数组（深度值为1）的每个元素，然后将结果压缩成一个新数组。
+> 返回一个新数组，而且每个元素都是回调函数的结果
+
+```javascript
+let arr = ['My home', 'is', '', 'lisa']
+arr.flatMap(cur => cur.split(' '))
+// ['My', 'home', 'is', '', 'lisa']
+```
+
+2. Object.fromEntries()
+> 会把键值对列表转换成一个对象
+> Object.fromEntries(iterable) // itetable: Array/Map等可迭代对象
+
+```javascript
+let map = new Map([['a', 1], ['b', 2]])
+Object.fromEntries(map)  // { a: 1, b: 2 }
+```
+
+3. String.prototype.{ trimStart, trimEnd }
+> trimStart() 用来删除字符串开头空白字符 -- trimLeft() 别名
+> trimEnd()   用来删除字符串结尾空白字符 -- trimRight() 别名
+> 返回一个新的字符串
+
+```javascript
+let str = '  a b c   '
+str.trimStart()  // 'a b c   '
+str.trimEnd()    // '  a b c'
+```
+
+4. Symbol.prototype.description
+> 只读属性，返回一个可选描述的字符串
+
+```javascript
+Symbol('myDescription').description   // myDescription
+Symbol().description                  // undefined
+Symbol.for('foo').description         // foo
+```
+
+5. Optional catch binding
+> 可省略catch绑定参数
+
+```javascript
+// old
+try {} catch(err) {}
+// new
+try {} catch {}
+```
+
+
+##### ES11（2020）
+
+1. 空值合并运算符
+> ?? 是一个逻辑操作符, 当左边操作数为null或undefined时, 返回右侧操作数, 否则返回左侧操作数
+
+```javascript
+undefined ?? 'foo'  // 'foo'
+null ?? 'foo'       // 'foo'
+'foo' ?? 'bar'      // 'foo'
+```
+
+> || 或逻辑操作符, 当左侧为【假值】时返回右侧操作数，否则返回左侧操作数
+
+```javascript
+0 || 'foo'   // 'foo'
+0 ?? 'foo'   // 0
+'' || 'foo'  // 'foo'
+'' ?? 'foo'  // ''
+```
+
+> 不可以将 ?? 与 && || 一起使用，否则会报错
+
+2. 可选链
+> ?. 允许读取位于连接对象链深处的属性值，而不必明确验证链中的每个引用都是否有效
+> 类似于 . 不同在于 引用为 null 或 undefined 时不会报错
+
+```javascript
+const street = user && user.address && user.address.street
+const street2 = user ?. address ?. street
+```
+
+3. globalThis
+> 在 Web 中，可以通过window、self取到全局对象，在node中必须使用 global
+> globalThis 提供一个标准方式来获取不同环境下的全局对象自身值
+
+4. BigInt
+> 一种内置对象，用于创建更大的整数，可以用来表示任意大的整数
+
+5. String.prototype.matchAll()
+> 返回一个包含所有匹配正则表达式的结果及分组捕获组的迭代器
+
+```javascript
+const regexp = /t(e)(st(d?))/g
+const str = 'test1test2'
+
+const array = [...str.matchAll(regexp)]
+console.log(array[0])  // ["test1", "e", "st1", "1"]
+console.log(array[1])  // ["test2", "e", "st2", "2"]
+```
+
+6. Promise.allSettled()
+> 返回一个在所有给定的 promise 都已经 fulfilled 或 rejected 后的 promise
+> 并带有一个对象数组，每个对象表示对应的 promise 结果
+
+```javascript
+Promise.allSettled([
+  Promise.resolve(33),
+  new Promise((resolve) => setTimeout(() => resolve(66), 0)),
+  99,
+  Promise.reject(new Error("an error")),
+]).then((values) => console.log(values))
+
+// [
+//   { status: 'fulfilled', value: 33 },
+//   { status: 'fulfilled', value: 66 },
+//   { status: 'fulfilled', value: 99 },
+//   { status: 'rejected', reason: Error: an error }
+// ]
+```
+
+7. Dynamic import (按需加载)
+> import 可以在需要的时候，再加载某个模块
+
+
+##### ES12（2021）
+
+1. 逻辑运算符和赋值表达式
+
+> &&=
+> x &&= y 等价于 x && (x=y)：当 x 为真时, x=y
+
+```javascript
+let a = 1
+let b = 0
+
+a &&= 2    // a = 2
+b &&= 3    // b = 0
+```
+
+> ||=
+> x ||= y 等价于 x || (x=y): 当 x 为falsy时, x=y
+
+```javascript
+let a = 1
+let b = 0
+
+a &&= 10   // a = 1
+b &&= 3    // b = 2
+```
+
+> ??=
+> x ??= y 等价于 x ?? (x=y): 当 x 为null或undefined时, x=y
+
+```javascript
+let a = 1
+let b
+
+a &&= 10   // a = 1
+b &&= 3    // b = 3
+```
+
+2. String.prototype.relaceAll(pattern, replacement)
+
+>  返回一个新字符串
+>  字符串中所有满足 pattern 的部分都会被 replacement 替换掉
+>  原字符串保持不变
+>  pattern 可以是一个字符串或RegExp
+>  replacement 可以是一个字符串或一个再每次被匹配被调用的函数
+
+```javascript
+'aabbcc'.replaceAll('b', '.')   // 'aa..cc'
+'aabbcc'.replaceAll(/b/g, '.')  // 'aa..cc'
+// 使用正则表达式时, 必须加上 /g 否则会报错
+```
+
+3. 数字分隔符
+
+> 允许 JavaScript 的数值使用下划线（_）作为分隔符，但是没有规定间隔的位数
+> 123_00  // 12300
+> 0.1_23  // 0.123
+
+```javascript
+// 1. 不能放在数值的最前面和最后面 _3
+// 2. 不能将两个及两个以上的分隔符连在一起 2__3
+// 3. 小数点的前后不能有分隔符  52_._3
+// 4. 科学记数法里，e 或 E 前后不能有分隔符
+```
+
