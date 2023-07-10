@@ -71,7 +71,7 @@ a = a ^ b;
 * 取整数部分
 
 
-##### ES8（2017）
+##### ES8（ES2017）
 
 1. Async 异步函数（promise 的语法糖）
 
@@ -115,7 +115,7 @@ str.padEnd(maxlength, padString)
 ```
 
 
-##### ES9（2018）
+##### ES9（ES2018）
 
 1. Async iterators 异步迭代器
 >  iterator.next().then(({value, done}) => {})
@@ -140,7 +140,7 @@ let result = { a: 1, ...rest }
 > 在 Promise 结束时，不管结果是 resolved 还是 rejected，都会调用 finaly 中的方法
 
 
-##### ES10（2019）
+##### ES10（ES2019）
 
 1. Array.prototype.{flat, flatMap} 扁平化嵌套数组
 > flat(depth) 会按照一个可指定的深度遍历递归数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回
@@ -204,7 +204,7 @@ try {} catch {}
 ```
 
 
-##### ES11（2020）
+##### ES11（ES2020）
 
 1. 空值合并运算符
 > ?? 是一个逻辑操作符, 当左边操作数为null或undefined时, 返回右侧操作数, 否则返回左侧操作数
@@ -278,7 +278,7 @@ Promise.allSettled([
 > import 可以在需要的时候，再加载某个模块
 
 
-##### ES12（2021）
+##### ES12（ES2021）
 
 1. 逻辑运算符和赋值表达式
 
