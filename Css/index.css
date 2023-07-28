@@ -1,0 +1,58 @@
+/* 
+   CSS计数器
+   1. 必须使用 counter-reset 属性初始化计数器的值
+      [计数器只能在可以生成盒子的元素中使用, 如果一个元素被设置为display:none, 则该元素上的任何计数器操作都会忽略]
+   2. 计数器可通过 counter-increment name [number] 属性指定其值递增或递减
+      [会随着css选择器递增, 可以在计数器名称后面指定单次递增或递减(负数)的值]
+   3. 当前计数器可通过 counter() 或 counters() 函数显示出来
+   4. 通常会在 伪元素的 content 属性中使用（content属性不能使用CSS变量 var()）
+   5. counter-set: name [number] // 设置计数器的值
+      counter-reset: 有初始化计数器并初始值的意思
+*/
+.counter {
+    /* 定义或初始化一个或多个css计数器 */
+    counter-reset: counterA 6 counterB 5 counterC;
+    /* 定义一个counterA 初始值6, 一个counterB 初始值5, 一个counterC初始值为默认值0 */
+}
+
+.counter2 {
+    counter-reset: counter2;
+}
+
+/* 总结 */
+/*
+当前计数器从父元素继承而来，遵循父元素的计数规则
+通过counter-reset实例化一个新的计数器
+通过counter-increment设置计数器的递增值
+通过counter-set为计数器设置计数初始值
+通过counter()/counters()使用计数器
+[初始值最好整数, 因为不同浏览器处理小数方式不同, 可能当作0或向下取整]
+[多个计数器一定要确保一个容器里的普照源(reset)是唯一的，兄弟之间的计数器也能获得]
+*/
+
+.test::before {
+    counter-increment: counterC;
+    /* content: counter(counterC, circle); */
+    content: counters(counterC, '-')
+    /*
+        1. counter(name, style)
+        // style === list-style-type: 表示一种计数的字符形式
+
+        2. counters(name, string)
+        // 级联计数，string表示计数序号的连接字符串，必须
+        // name 必须为同名的计数器 才能连接
+    */
+}
+
+li {
+    counter-increment: list-item 2;
+}
+
+li::marker {
+    content: '('counter(list-item)')';
+}
+
+/*
+*** 列表项在定义时，会自动添加一个名为 list-item 的计数器
+*** 故上述设置是有效的，而列表项的前面标记css为 marker
+*/
