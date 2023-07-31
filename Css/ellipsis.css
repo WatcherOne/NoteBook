@@ -1,0 +1,20 @@
+.box {
+    width: 20em;
+    height: 1.3em;
+    overflow: hidden;
+    zoom: 1;
+}
+
+.box .text {
+    float: left;
+    height: 1.3em;
+    margin-right: 3em;
+    overflow: hidden;
+}
+
+.box .dotted {
+    float: right;
+    width: 3em;
+    height: 1.3em;
+    margin-top: -1.3em;
+}
