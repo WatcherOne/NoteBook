@@ -1,0 +1,62 @@
+/* 三角函数的应用 */
+.container {
+    --size: 128px;
+    width: var(--size);
+    height: 100px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    position: relative;
+    position: absolute;
+    left: 50%;
+    background-color: white;
+}
+
+.piece {
+    width: var(--size);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /* 40是旋转角度，以此记住 tan() 函数算出偏移值 */
+    --z: calc(40px + var(--size) / tan((40 / 180) * 3.14159));
+    transform: rotateY(calc(40deg * var(--index))) translateZ(var(--z));
+    box-shadow: 0 1px 3px rgba(0,0,0,.5);
+    transition: opacity 1s, transform 1s;
+}
+
+.piece:nth-child(1) {
+    --index: 0;
+    background-color: aqua;
+}
+.piece:nth-child(2) {
+    --index: 1;
+    background-color: aquamarine;
+}
+.piece:nth-child(3) {
+    --index: 2;
+    background-color: bisque;
+}
+.piece:nth-child(4) {
+    --index: 3;
+    background-color: blueviolet;
+}
+.piece:nth-child(5) {
+    --index: 4;
+    background-color: chartreuse;
+}
+.piece:nth-child(6) {
+    --index: 5;
+    background-color: burlywood;
+}
+.piece:nth-child(7) {
+    --index: 6;
+    background-color: blueviolet;
+}
+.piece:nth-child(8) {
+    --index: 7;
+    background-color: burlywood;
+}
+.piece:nth-child(9) {
+    --index: 8;
+    background-color: darkcyan;
+}

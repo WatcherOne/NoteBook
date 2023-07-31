@@ -23,7 +23,7 @@
 /*
 当前计数器从父元素继承而来，遵循父元素的计数规则
 通过counter-reset实例化一个新的计数器
-通过counter-increment设置计数器的递增值
+通过counter-increment设置计数器的递增值【相当于记录css元素的出现个数】
 通过counter-set为计数器设置计数初始值
 通过counter()/counters()使用计数器
 [初始值最好整数, 因为不同浏览器处理小数方式不同, 可能当作0或向下取整]
