@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="屏幕捕获API">
+    <title>Screen Capture API</title>
+</head>
+<body>
+    <video id="preview" autoplay>
+        your browser doesn't support HTML5
+    </video>
+    <button type="button" id="btn" class="btn">Start</button>
+</body>
+<script>
+    console.log(navigator.mediaDevices)
+    const previewElem = document.getElementById('preview')
+    const startBtn = document.getElementById('btn')
+
+    startBtn.addEventListener('click', startRecording)
+
+    async function startRecording () {
+        /* 
+           不支持原因有两种
+            1. 本身浏览器(包含版本不支持)
+            2. localhost | file:// | https 这些域下面浏览器支持的话是支持屏幕捕捉的
+                如：http 下, mediaDevices.getDisplayMedia 是 undefined
+                    如果想要在 http 下也能使用和调试则需要开启 chrome 的相应参数
+                A. 鼠标右键点击浏览器快捷方式 => 选择属性 => 修改启动参数值(在目标(T)最后加入)
+                   --unsafely-treat-insecure-origin-as-secure="http://xxx.xx"
+                B. 开启相应flag
+                   打开 chrome://flags/#unsafely-treat-insecure-origin-as-secure
+                   启动 Insecure origins treated as secure 为 enabled（将给定来源视为安全来源）
+                   在输入框中填写需要开启的域名，多个以逗号分隔
+        */
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia){
+            alert("当前浏览器不支持屏幕捕捉")
+            return
+        }
+        let mediaStream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+            audio: true
+        })
+        console.log(mediaStream)
+        previewElem.srcObject = mediaStream
+    }
+</script>
+</html>
