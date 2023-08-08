@@ -5,8 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>基础CSS面试题</title>
+    <style>
+        body {
+            width: 300px;
+            height: 250px;
+        }
+        .side {
+            width: 100px;
+            height: 150px;
+            background-color: #fcc;
+            float: left;
+        }
+        .main {
+            height: 250px;
+            background-color: aquamarine;
+            overflow: hidden;
+        }
+        .box-letter::first-letter {
+            color: red;
+        }
+        .box-row {
+            width: 50px;
+        }
+        .box-row::first-line {
+            color: pink;
+        }
+    </style>
 </head>
 <body>
-    <div></div>
+    <div class="side"></div>
+    <div class="main"></div>
+    <div class="box-letter">大苏打大FJSHDKJAHDSD大苏打大</div>
+    <div class="box-row">好卡的哈啥的卡号的的哈啥接电话，大苏打大发放</div>
 </body>
 </html>
