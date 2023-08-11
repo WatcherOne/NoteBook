@@ -30,6 +30,33 @@
         .box-row::first-line {
             color: pink;
         }
+        .parent .child:first-of-type {
+            color: red;
+        }
+        .parent .child:last-child {
+            color: green;
+        }
+        .parent .child:last-of-type {
+            color: blue;
+        }
+        /* .parent .child:nth-child(2) {
+            color: yellow;
+        } */
+        /* .child2 + .child {
+            color: blue;
+        } */
+        .empty:empty {
+            border: 1px solid;
+        }
+        .only .child:only-child {
+            color: red;
+        }
+        .only .child:only-of-type {
+            color: blue;
+        }
+        .type-all .child:nth-of-type(3) {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -37,5 +64,34 @@
     <div class="main"></div>
     <div class="box-letter">大苏打大FJSHDKJAHDSD大苏打大</div>
     <div class="box-row">好卡的哈啥的卡号的的哈啥接电话，大苏打大发放</div>
+    <div class="parent">
+        <div class="child2">4</div>
+        <div class="child">5</div>
+        <div class="child">6</div>
+        <div class="child6">6</div>
+    </div>
+    <div class="parent">
+        <div class="child">1-child</div>
+        <div class="child">2-child</div>
+        <div class="child">3-child</div>
+    </div>
+    <div class="empty">ds</div>
+    <div class="empty"></div>
+    <div class="only">
+        <div class="child">3</div>
+    </div>
+    <div class="only">
+        <div class="child">6</div>
+        <p class="child">7</p>
+    </div>
+    <div class="type-all">
+        <div class="child">1</div>
+        <span class="child">2</span>
+        <span class="child2">3</span>
+        <div class="child">4</div>
+        <div class="child">5</div>
+        <div class="child">6</div>
+        <span class="child">7</span>
+    </div>
 </body>
 </html>
