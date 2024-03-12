@@ -38,5 +38,7 @@ const objectOfAttrs = {
 - 会暴露常用的内置全局对象如 Math/Date，没有显式包含在列表中的全局对象不能在表达式中使用，可以通过全局配置`app.config.globalProperties`上显式地添加它们
 
 
+插件：simple-git-hooks
+配置：tsconfig.json  / tsconfig.node.json
 
 
