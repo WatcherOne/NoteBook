@@ -59,7 +59,9 @@ export {}
 
 ```shell
 git config --global credential.helper store
+```
 
+```shell
 cd ~/.gitconfig   // 查看github的配置
 
 // `通过查看可知已配置加入，但是还是没有用`
@@ -69,6 +71,9 @@ cd ~/.gitconfig   // 查看github的配置
 
 ```shell
 ssh-add -K /Users/watcher/.ssh/id_rsa
+```
+
+```shell
 // `执行后是实测有用的`
 
 cd ~/.ssh
