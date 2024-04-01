@@ -142,3 +142,35 @@ import { useXXFn } from '@vueuse/core'
     redo()
     console.log(counter.value)  // 5
     ```
+
+  - 配置 deep 来深度监听属性值
+
+    ```javascript
+    const { history, undo. redo } = useRefHistory(state, {
+        deep: true
+    })
+    ```
+  
+  - 设置记录容器容量, 然后可以调用 clear 清除历史记录
+
+    ```javascript
+    const { clear } = useRefHistory(state, {
+        capacity: 15  // 只能保留15条记录
+    })
+    clear()  // 清除所有的记录
+    ```
+
+----
+6. #### useThrottledRefHistory(source, options = {})
+
+  - 带节流过滤器的 useRefHistory 的简写
+  - 该函数在计数器的值被更改后立即获取第一个快照，第二个快照会延迟1000ms
+
+    ```javascript
+    import { ref } from 'vue'
+    import { useThrottledRefHistory } from '@vueuse/core'
+
+    const counter = ref(0)
+    const { history, undo, redo } = useThrottledRefHistory(counter, { deep: true, throttle: 1000 })
+    // 延迟1s后才会记录第二个快照
+    ```
