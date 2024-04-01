@@ -13,6 +13,7 @@
 - ::first-letter // 修改一段文本的第一个字符(只能应用于块级元素)
 - ::first-line   // 修改一段文本的第一行(只能应用于块级元素)
 - ::selection    // 设置被用户选择时的样式，只能定义 `color` 和 `background-color`
+- ::mark     // 列表项的标记
 
 <br/>
 
