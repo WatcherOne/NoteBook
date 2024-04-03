@@ -9,15 +9,16 @@
 
 > **uTools**
 
-- 非常强大的一款效率工具平台, 提供大量好用的工具集, option + space 弹出搜索框
-![11.png]
- - [ ] 可显示小浮球
- - [ ] 搜索本地应用
- - [ ] 搜索本地文件
- - [ ] 剪粘板&中转账(感觉不是很好用, 推荐 PasteNow)
- - [ ] 提供很多插件
- - [ ] 可以自定义插件并上传发布 [开发文档](https://www.u.tools/docs/developer/welcome.html)<br/>
+- [ ] 非常强大的一款效率工具平台, 提供大量好用的工具集
+- [ ] option + space 弹出搜索框(可自定义设置)
+- [ ] 可显示小浮球
+- [ ] 搜索本地应用
+- [ ] 搜索本地文件
+- [ ] 剪粘板&中转账(感觉不是很好用, 推荐 PasteNow)
+- [ ] 提供很多插件
+- [ ] 可以自定义插件并上传发布 [开发文档](https://www.u.tools/docs/developer/welcome.html)
 
+![11.png]
 🚀 [安装地址](https://www.u.tools/download/)<br>
 另一个类似的`Alfred`, [App Stroe](https://apps.apple.com/cn/app/alfred/id405843582?mt=12)免费, [官网](https://www.alfredapp.cc/)中下载需要收费, 纯英文版, 界面也不好看, 看个人习惯
 
