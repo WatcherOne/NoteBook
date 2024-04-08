@@ -52,6 +52,7 @@
   	- `command + T         `  &nbsp;&nbsp; // 打开新标签页（含系统类）
   	- `command + 1/2/3…    `  &nbsp;&nbsp; // 切换标签页
   	- `command + Tab       `  &nbsp;&nbsp; // 快速切换应用
+  	- `command + 反引号``   `  &nbsp;&nbsp; // 快速切换同一应用的不同窗口
 
 - *功能类*
   	- `command + 空格      `  &nbsp;&nbsp; // 聚焦搜索
