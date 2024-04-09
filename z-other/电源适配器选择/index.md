@@ -79,3 +79,32 @@ MacBook 查看电脑充电功率
 
 需要注意的是, 实际的数据传输速度可能受到设备和传输环境的影响
 例如, USB 3.0的理论最高传输速度为5 Gbps, 但实际传输速度可能会受到连接设备的限制而降低
+
+> 常见接口说明
+
+| 接口 | 简述 |
+| :---: | :---: |
+| AC | 交流电插头,插座口 |
+| USB Type-A | A口, USB-A, 普通的USB接口 |
+| USB Type-C | C口, USB-C, Type-C口 |
+| Micro USB | 安卓接口 |
+| lightning | 苹果接口 |
+
+> USB标准版本
+
+常见的还是 USB2.0 与 USB3.0 (USB3.2 Gen1)
+
+| 版本 | 最大传输速率 | 电压电流支持 |
+| :---: | :---: | :---: |
+| USB1.0 | 1.5 Mbps | 5V / 500mA |
+| USB1.1 | 12 Mbps | 5V / 500mA |
+| USB2.0 | 480 Mbps | 5V / 500mA |
+| USB3.2 Gen1 / USB3.2 Gen1 * 1 | 5 Gbps | 5V / 900mA |
+| USB3.2 Gen2 * 1 | 10 Gbps | 20V / 5A |
+| USB3.2 Gen2 * 2 | 20 Gbps | 20V / 5A |
+| USB4 | 40 Gbps | 20V / 5A |
+
+区别 USB2.0 与 USB3.0
+
+![1.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9a807ff188524f2f9e5afab63cba98fa~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=614&h=394&s=91349&e=png&b=fdfdfd)
+![2.png](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9f677a1380ec48b4a6f5c8c9411a5dac~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=634&h=282&s=199350&e=png&b=37363f)
