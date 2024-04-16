@@ -32,6 +32,7 @@
     "options_page": "",
     "options_ui": {},
     "omnibox": {},
+    "host_permissions": [],
     "devtools_page": "",
     "web_accessible_resources": []
 }
@@ -54,6 +55,7 @@
 - [options_page](#user-content-optionsPage)
 - [options_ui](#user-content-optionsUi)
 - [omnibox](#user-content-omnibox)
+- [host_permissions](#user-content-hostPermissions)
 - [devtools_page](#user-content-devtoolsPage)
 - [web_accessible_resources](#user-content-webAccessibleResources)
 
@@ -334,6 +336,20 @@ if (chrome.runtime.openOptionsPage) {
 chrome.omnibox.onInputChange.addListener((text, suggest) => {})
 // 根据接收点击的建议触发事件
 chrome.omnibox.onInputEntered.addListener((text) => {})
+```
+
+----
+
+#### <span id="hostPermissions">**host_permissions**</span>
+
+- 列出允许您的扩展程序与之互动的网页，使用网址匹配模式定义
+- 系统会在安装应用时请求这些网站的用户权限
+- 对于需要调用外部接口时, 很有用的, 需要配置对应API的权限
+
+```json
+{
+    "host_permissions": ["*://*/*"]  // 允许所有网页
+}
 ```
 
 ----
